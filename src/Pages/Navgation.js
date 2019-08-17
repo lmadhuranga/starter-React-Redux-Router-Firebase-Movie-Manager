@@ -17,9 +17,6 @@ class Navgation extends Component {
               <NavLink className="nav-link" to="/home">Home</NavLink> 
             </li>
             <li className="nav-item ">
-              <NavLink className="nav-link" to="/user">Users</NavLink> 
-            </li>
-            <li className="nav-item ">
               <NavLink className="nav-link" to="/post">Posts</NavLink> 
             </li> 
           </ul>

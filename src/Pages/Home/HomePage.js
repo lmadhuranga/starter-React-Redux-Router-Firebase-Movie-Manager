@@ -4,25 +4,16 @@ import { connect } from 'react-redux';
 import { fetchRecords, deletePost} from '../../redux/actions/postActions'; 
 // import { appConfig } from '../../config/globel.conf';
 
-import PostListPage from '../Post/ListPage';
-import UserListPage from '../User/ListPage';
+import PostListPage from '../Post/ListPage'; 
 
 
 class HomePage extends Component { 
-  
-  // constructor() {
-  //   super();
-  // }
-
-  // componentDidMount() {
-  // }
-  
+   
   render() {
     
     return (
       <div className="container homePage">
-        <h1>Home Page</h1>
-        <UserListPage ></UserListPage>
+        <h1>Home Page</h1> 
         <PostListPage limit={10}></PostListPage>
       </div>
     );
