@@ -1,39 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchRecord } from '../../redux/actions/postActions';
+import { fetchMovie } from '../../redux/actions/movieActions';
 import { moduleConfig } from './config';
 
 
 class ViewPage extends Component {
-
-  constructor(){
-    super();
-    this.state = { 
-      post:{}
-    }
-  }
-
   componentDidMount(props){
-    let postId = this.props.match.params.id;
-    this.props.fetchRecord(postId);    
+    let movieId = this.props.match.params.id;
+    this.props.fetchMovie(movieId);    
   }
 
   UNSAFE_componentWillReceiveProps(props){
-    this.setState({post:props.post});
+    this.setState({movie:props.movie});
   }
 
   render() {
-    const { post } = this.state;
-    let editurl = `/${moduleConfig.url}/edit/${post.id}`;
+    const { movie } = this.props;
+    let editurl = `/${moduleConfig.url}/edit/${movie.id}`;
      
-    if(post.title===undefined)
+    if(movie.name===undefined)
       return(<div>Loading...</div>);
       
     return (
-      <div className="container post-page">
-        <h1>Post : {post.title}</h1>
-        <p>{post.body}</p>
+      <div className="container movie-page">
+        <h3>Post : {movie.name}</h3>
+        <p>quality:{movie.quality}</p>
+        <p>path:<Link to={movie.path}>{movie.path}</Link></p>
         <Link className="btn btn-primary btn-sm" to={editurl}>Edit</Link> &nbsp;
         <Link className="btn btn-primary btn-sm" to={`/${moduleConfig.url}`} > Back</Link>
       </div>
@@ -43,10 +36,10 @@ class ViewPage extends Component {
 }
 
 // ViewPage.propTypes = {
-//   title: PropTypes.string.isRequired,
+//   name: PropTypes.string.isRequired,
 // };
 const mapStateToprops = state => ({
-  post: state.posts.item
+  movie: state.movies.item
 });
 
-export default connect( mapStateToprops, { fetchRecord })(ViewPage);
+export default connect( mapStateToprops, { fetchMovie })(ViewPage);

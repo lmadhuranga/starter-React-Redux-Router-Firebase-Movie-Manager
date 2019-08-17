@@ -1,4 +1,4 @@
-import { FETCH_POSTS, NEW_POST, VIEW_POST, UPDATE_POST,DELETE_POST }  from '../actions/postTypes';
+import { FETCH_MOVIES, NEW_MOVIE, VIEW_MOVIE, UPDATE_MOVIE, DELETE_MOVIE }  from '../actions/movieTypes';
 
 const initialSate = {
     items: [],
@@ -9,27 +9,27 @@ export default function(state = initialSate, action) {
     // console.log('action',action.type ,action.payload);
     // console.log('initialSate',initialSate);
     switch(action.type) {
-        case FETCH_POSTS: 
+        case FETCH_MOVIES: 
             return {
                 ...state,
                 items: action.payload
             }
-        case NEW_POST: 
+        case NEW_MOVIE: 
             return {
                 ...state,
                 item: action.payload
             }
-        case UPDATE_POST: 
+        case UPDATE_MOVIE: 
             return {
                 ...state,
                 item: action.payload
             }
-        case VIEW_POST: 
+        case VIEW_MOVIE: 
             return {
                 ...state,
                 item: action.payload
             }
-        case DELETE_POST: 
+        case DELETE_MOVIE: 
             return {
                 ...state,
                 item: action.payload

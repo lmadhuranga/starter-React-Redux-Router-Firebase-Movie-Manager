@@ -1,14 +1,14 @@
-import { FETCH_POSTS, NEW_POST, VIEW_POST, UPDATE_POST, DELETE_POST }  from './postTypes';
+import { FETCH_MOVIES, NEW_MOVIE, VIEW_MOVIE, UPDATE_MOVIE, DELETE_MOVIE }  from './movieTypes';
 import { appConfig } from '../../config/globel.conf';
-const entity = 'posts';
+const entity = 'movies';
 const entityUrl = `${appConfig.app.host.url}/${entity}`;
 
-export const fetchRecords = () => dispatch => {
+export const fetchMovies = () => dispatch => {
     fetch(`${entityUrl}?_sort=id&_order=desc`)
     .then(res => res.json())
-    .then(posts => dispatch({
-        type:FETCH_POSTS,
-        payload: posts
+    .then(movies => dispatch({
+        type:FETCH_MOVIES,
+        payload: movies
     }));
 }
 
@@ -21,9 +21,9 @@ export const create = (formData) => dispatch => {
         body: JSON.stringify(formData)
     })
     .then(res => res.json())
-    .then(post => dispatch({
-        type:NEW_POST,
-        payload: post
+    .then(movie => dispatch({
+        type:NEW_MOVIE,
+        payload: movie
     })); 
 }
 
@@ -36,27 +36,27 @@ export const update = (id, formData) => dispatch => {
         body: JSON.stringify(formData)
     })
     .then(res => res.json())
-    .then(post => dispatch({
-        type:UPDATE_POST,
-        payload: post
+    .then(movie => dispatch({
+        type:UPDATE_MOVIE,
+        payload: movie
     }));
 }
 
-export const fetchRecord = (postId) => dispatch => { 
-    fetch(`${entityUrl}/${postId}`)
+export const fetchMovie = (movieId) => dispatch => { 
+    fetch(`${entityUrl}/${movieId}`)
     .then(res => res.json())
-    .then(post => dispatch({
-        type: VIEW_POST,
-        payload: post
+    .then(movie => dispatch({
+        type: VIEW_MOVIE,
+        payload: movie
     }));
 }
 
-export const deletePost = (id, formData) => dispatch => {
+export const deleteMovie = (id, formData) => dispatch => {
     return fetch(`${entityUrl}/${id}`, {
         method: 'DELETE'
     })
-    .then(post => dispatch({
-        type:DELETE_POST,
+    .then(movie => dispatch({
+        type:DELETE_MOVIE,
         payload: "{}"
     }));
 }

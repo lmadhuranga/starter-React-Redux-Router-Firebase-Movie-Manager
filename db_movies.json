@@ -1,0 +1,46 @@
+{
+  "movies": [
+    {
+      "id": 1,
+      "name": "Spider Man",
+      "quality": "720px",
+      "path": "192.168.1.1/share/movies",
+      "downloads": 5
+    },
+    {
+      "id": 2,
+      "name": "Iron man ",
+      "quality": "720",
+      "path": "192.168.1.1/share/movies",
+      "downloads": 0
+    },
+    {
+      "path": "hgjhg",
+      "quality": "1080px",
+      "name": "lkjlkj",
+      "downloads": 1,
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "sss",
+      "quality": "fff",
+      "path": "sdf",
+      "downloads": 0
+    }
+  ],
+  "qualities": [
+    {
+      "id": 1,
+      "quality": "720px"
+    },
+    {
+      "id": 2,
+      "quality": "1080px"
+    }
+  ],
+  "profile": {
+    "username": "lmadhuranga",
+    "ip": "192.168.1.1"
+  }
+}
