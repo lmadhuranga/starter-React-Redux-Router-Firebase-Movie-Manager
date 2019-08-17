@@ -1,7 +1,7 @@
 import React, { Component } from 'react';   
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchRecords, deletePost} from '../../redux/actions/postActions';
+import { fetchMovies, deleteMovie} from '../../redux/actions/movieActions';
 import { Link } from 'react-router-dom';
 import { moduleConfig } from './config';
 
@@ -9,27 +9,27 @@ class ListPage extends Component {
   
   constructor() {
     super();
-    this.deletePost = this.deletePost.bind(this);
+    this.deleteMovie = this.deleteMovie.bind(this);
   }
 
-  getPosts() { 
-    this.props.fetchRecords();
+  getMovies() { 
+    this.props.fetchMovies();
   }
 
-  deletePost(e, id) {
-    this.props.deletePost(id)
+  deleteMovie(e, id) {
+    this.props.deleteMovie(id)
     .then(()=> {
-      this.getPosts();
+      this.getMovies();
     })
   }
 
   componentDidMount() {
-    this.getPosts();
+    this.getMovies();
   }
   
   render() {
-    const { posts, limit } = this.props;
-    const recordsCount = posts.length; 
+    const { movies, limit } = this.props;
+    const recordsCount = movies.length; 
     
     if(recordsCount===0){
       return(<div>Loading.....</div>);
@@ -38,12 +38,12 @@ class ListPage extends Component {
     // if list defined only list last items only
     const _limit = limit || recordsCount; 
     
-    let postsItems = posts.slice((recordsCount - _limit), recordsCount).map((post)=>{
-      let url = `/${moduleConfig.url}/view/${post.id}`;
+    let moviesItems = movies.slice((recordsCount - _limit), recordsCount).map((movie)=>{
+      let url = `/${moduleConfig.url}/view/${movie.id}`;
       return (
-        <li key={post.id}>
-          <Link to={url} > {post.title} </Link>
-          <button className="btn btn-outline-danger btn-sm" onClick={(e) => this.deletePost(e, post.id)}>x</button>
+        <li key={movie.id}>
+          <Link to={url} > {movie.name} </Link>
+          <button className="btn btn-outline-danger btn-sm" onClick={(e) => this.deleteMovie(e, movie.id)}>x</button>
         </li>
       );
     });
@@ -51,11 +51,11 @@ class ListPage extends Component {
     return (
       <div className="container ListPage">
         <div className="row">
-          <h1>Post Collection</h1> &nbsp;
+          <h3>Movie Collection</h3> &nbsp;
           <Link className="btn btn-outline-info btn-sm" to={`/${moduleConfig.url}/edit`}>New</Link>
         </div>
         <ul>
-          {postsItems}
+          {moviesItems}
         </ul>
       </div>
     );
@@ -63,16 +63,16 @@ class ListPage extends Component {
 }
 
 // ListPage.propTypes = {
-//   title: PropTypes.string.isRequired,
+//   name: PropTypes.string.isRequired,
 // };
 const mapStateToprops = state => ({
-  posts: state.posts.items
+  movies: state.movies.items
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchRecords: () => dispatch(fetchRecords()),
-    deletePost: (id) => dispatch(deletePost(id))
+    fetchMovies: () => dispatch(fetchMovies()),
+    deleteMovie: (id) => dispatch(deleteMovie(id))
   }
 }
 

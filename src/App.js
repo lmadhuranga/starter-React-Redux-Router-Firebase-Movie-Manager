@@ -6,11 +6,11 @@ import './App.css';
  
 import HomePage from './Pages/Home/HomePage';
 
-import PostViewPage from './Pages/Post/ViewPage';
-import PostEditPage from './Pages/Post/EditPage';
-import PostListPage from './Pages/Post/ListPage'; 
+import MovieViewPage from './Pages/Movie/ViewPage';
+import MovieEditPage from './Pages/Movie/EditPage';
+import MovieListPage from './Pages/Movie/ListPage'; 
 
-import Error from './Pages/Post/Error';
+import Error from './Pages/Movie/Error';
 import Navgation from './Pages/Navgation';
 
 class App extends Component {
@@ -26,10 +26,10 @@ class App extends Component {
                 <Route path='/' exact component={HomePage} />
                 <Route path='/home' component={HomePage} />
                 
-                <Route path='/post/' exact component={PostListPage} />
-                <Route path='/post/view/:id' component={PostViewPage} />
-                <Route path='/post/edit/:id' component={PostEditPage} />
-                <Route path='/post/edit' component={PostEditPage} />
+                <Route path='/movie/' exact component={MovieListPage} />
+                <Route path='/movie/view/:id' component={MovieViewPage} />
+                <Route path='/movie/edit/:id' component={MovieEditPage} />
+                <Route path='/movie/edit' component={MovieEditPage} />
  
                 <Route  component={Error} />
               </Switch>

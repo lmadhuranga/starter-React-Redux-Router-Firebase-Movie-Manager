@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import postReducer from './postReducer'; 
+import movieReducer from './movieReducer'; 
 
 export default combineReducers({
-    posts: postReducer, 
+    movies: movieReducer, 
 }) 
 

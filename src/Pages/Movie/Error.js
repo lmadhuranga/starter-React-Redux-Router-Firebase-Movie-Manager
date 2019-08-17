@@ -6,7 +6,7 @@ class Error extends Component {
      
     return (
       <div className="hunter">
-        <h1>Error</h1>
+        <h3>Error</h3>
       </div>
     );
     
