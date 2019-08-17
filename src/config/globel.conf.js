@@ -3,7 +3,7 @@ export const appConfig  = {
     name : 'Mad World'
   },
   app: {
-    name : 'Todo Collector',
+    name : 'Movie Collector',
     host: {
       url: 'http://localhost:3000'
     }

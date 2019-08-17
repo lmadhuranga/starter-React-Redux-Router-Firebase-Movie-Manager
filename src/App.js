@@ -8,11 +8,7 @@ import HomePage from './Pages/Home/HomePage';
 
 import PostViewPage from './Pages/Post/ViewPage';
 import PostEditPage from './Pages/Post/EditPage';
-import PostListPage from './Pages/Post/ListPage';
-
-import UserViewPage from './Pages/User/ViewPage';
-import UserEditPage from './Pages/User/EditPage';
-import UserListPage from './Pages/User/ListPage';
+import PostListPage from './Pages/Post/ListPage'; 
 
 import Error from './Pages/Post/Error';
 import Navgation from './Pages/Navgation';
@@ -34,11 +30,7 @@ class App extends Component {
                 <Route path='/post/view/:id' component={PostViewPage} />
                 <Route path='/post/edit/:id' component={PostEditPage} />
                 <Route path='/post/edit' component={PostEditPage} />
-
-                <Route path='/user/' exact component={UserListPage} />
-                <Route path='/user/view/:id' component={UserViewPage} />
-                <Route path='/user/edit/:id' component={UserEditPage} />
-                <Route path='/user/edit' component={UserEditPage} />
+ 
                 <Route  component={Error} />
               </Switch>
             </div>
