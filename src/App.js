@@ -8,10 +8,14 @@ import HomePage from './Pages/Home/HomePage';
 
 import MovieViewPage from './Pages/Movie/ViewPage';
 import MovieEditPage from './Pages/Movie/EditPage';
-import MovieListPage from './Pages/Movie/ListPage'; 
+import MovieListPage from './Pages/Movie/ListPage';
+
+
+import LoginPage from './Pages/Auth/LoginPage'; 
+import RegisterPage from './Pages/Auth/RegisterPage'; 
 
 import Error from './Pages/Movie/Error';
-import Navgation from './Pages/Navgation';
+import Navgation from './Pages/Nav/Navgation';
 
 class App extends Component {
  
@@ -23,6 +27,9 @@ class App extends Component {
             <Navgation/>
             <div className="main-container">
               <Switch> 
+                <Route path='/auth/login' component={LoginPage} />
+                <Route path='/auth/register' component={RegisterPage} />
+
                 <Route path='/' exact component={HomePage} />
                 <Route path='/home' component={HomePage} />
                 
