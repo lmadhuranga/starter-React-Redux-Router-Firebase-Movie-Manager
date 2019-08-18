@@ -76,25 +76,25 @@ class EditPage extends Component {
             return(<div>Loading...</div>);
         let headLine = <h3 >Create Post</h3>;
         if(this.isUpdate()) {
-            headLine = <h3 >Update { movie.title } Post</h3>;
+            headLine = <h3 >Update { movie.name } </h3>;
         }
         return (
             <div className="container movie-page">
                 { headLine }
-                <form className="" onSubmit={this.handleSaveData.bind(this)}>
+                <form className="" onSubmit={ this.handleSaveData.bind(this) }>
                     <div className="form-group">
-                        <label htmlFor="title"></label>
-                        <input className="form-control" type="text" ref="name" defaultValue={ movie.name } name="name" placeholder="Name" onChange={this.handleInput}/>
+                        <label htmlFor="Name">Name</label>
+                        <input className="form-control" type="text" ref="name" defaultValue={ movie.name } name="name" onChange={this.handleInput}/>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="quality"></label>
-                        <input className="form-control" type="text" ref="quality" defaultValue={ movie.quality } name="quality" placeholder="Quality" onChange={this.handleInput}/> 
+                        <label htmlFor="quality">Quality</label>
+                        <input className="form-control" type="text" ref="quality" defaultValue={ movie.quality } name="quality" onChange={this.handleInput}/> 
                     </div> 
                     <div className="form-group">
-                        <label htmlFor="path"></label>
-                        <input className="form-control" type="text" ref="path" defaultValue={ movie.path } name="path" placeholder="Path" onChange={this.handleInput}/> 
+                        <label htmlFor="path">Path</label>
+                        <input className="form-control" type="text" ref="path" defaultValue={ movie.path } name="path" onChange={this.handleInput}/> 
                     </div>
-                    <button className="btn btn-primary btn-sm" type="submit">Save </button>
+                    <button className="btn btn-primary btn-sm" type="submit">Update</button>
                 </form>
             </div>
         );
