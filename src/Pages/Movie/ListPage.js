@@ -1,8 +1,8 @@
 import React, { Component } from 'react';   
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchMovies, deleteMovie} from '../../redux/actions/movieActions';
-import { Link } from 'react-router-dom';
+import { fetchMovies, deleteMovie} from '../../redux/actions/movieActions'; 
+import { Link, Redirect } from 'react-router-dom';
 import { moduleConfig } from './config';
 
 class ListPage extends Component { 
@@ -28,9 +28,11 @@ class ListPage extends Component {
   }
   
   render() {
-    const { movies, limit } = this.props;
+    const { movies, limit, auth } = this.props;
     const recordsCount = movies.length; 
     
+    if(!auth.uid) return <Redirect to ="/auth/login" /> 
+
     if(recordsCount===0){
       return(<div>Loading.....</div>);
     } 
@@ -66,7 +68,8 @@ class ListPage extends Component {
 //   name: PropTypes.string.isRequired,
 // };
 const mapStateToprops = state => ({
-  movies: state.movies.items
+  movies: state.movies.items,
+  auth: state.firebase.auth
 });
 
 const mapDispatchToProps = (dispatch) => {
