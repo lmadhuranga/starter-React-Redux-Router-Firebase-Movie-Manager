@@ -24,9 +24,9 @@ class ViewPage extends Component {
       
     return (
       <div className="container movie-page">
-        <h3>Post : {movie.name}</h3>
-        <p>quality:{movie.quality}</p>
-        <p>path:<Link to={movie.path}>{movie.path}</Link></p>
+        <h3>movie : {movie.name}</h3>
+        <p>quality : {movie.quality}</p>
+        <p>path : <Link to={movie.path}>{movie.path}</Link></p>
         <Link className="btn btn-primary btn-sm" to={editurl}>Edit</Link> &nbsp;
         <Link className="btn btn-primary btn-sm" to={`/${moduleConfig.url}`} > Back</Link>
       </div>
