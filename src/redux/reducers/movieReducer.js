@@ -1,8 +1,10 @@
-import { FETCH_MOVIES, NEW_MOVIE, VIEW_MOVIE, UPDATE_MOVIE, DELETE_MOVIE }  from '../actions/movieTypes';
+import { FETCH_MOVIES, CREATE_MOVIE, VIEW_MOVIE, UPDATE_MOVIE, DELETE_MOVIE, UPDATE_COMPLETED  }  from '../actions/movieTypes';
 
 const initialSate = {
     items: [],
-    item: {}
+    item: {},
+    isLoading: false,
+    isUpdate: false
 }
 
 export default function(state = initialSate, action) {
@@ -14,7 +16,7 @@ export default function(state = initialSate, action) {
                 ...state,
                 items: action.payload
             }
-        case NEW_MOVIE: 
+        case CREATE_MOVIE: 
             return {
                 ...state,
                 item: action.payload
@@ -22,7 +24,12 @@ export default function(state = initialSate, action) {
         case UPDATE_MOVIE: 
             return {
                 ...state,
-                item: action.payload
+                isUpdate: true 
+            }
+        case UPDATE_COMPLETED: 
+            return {
+                ...state,
+                isUpdate: true 
             }
         case VIEW_MOVIE: 
             return {

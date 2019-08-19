@@ -1,63 +1,110 @@
-import { FETCH_MOVIES, NEW_MOVIE, VIEW_MOVIE, UPDATE_MOVIE, DELETE_MOVIE }  from './movieTypes';
-import { appConfig } from '../../config/globel.conf';
+import { CREATE_MOVIE, CREATE_MOVIE_ERROR,FETCH_MOVIES_ERROR, VIEW_MOVIE, UPDATE_COMPLETED, DELETE_MOVIE, FETCH_MOVIES }  from './movieTypes'; 
+import { LOADING, LOADING_COMPLETE }  from './commonTypes'; 
+// import { appConfig } from '../../config/globel.conf';
+// const entityUrl = `${appConfig.app.host.url}/${entity}`;
 const entity = 'movies';
-const entityUrl = `${appConfig.app.host.url}/${entity}`;
 
-export const fetchMovies = () => dispatch => {
-    fetch(`${entityUrl}?_sort=id&_order=desc`)
-    .then(res => res.json())
-    .then(movies => dispatch({
-        type:FETCH_MOVIES,
-        payload: movies
-    }));
+export const fetchMovies = () => { 
+
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        dispatch( {type: LOADING } );
+        
+        const firestore = getFirestore();
+        firestore.collection(entity).get()
+        .then(snapshot => {
+            const movies = snapshot.docs.map(doc => { 
+                let movie = doc.data(); 
+                movie.id = doc.id;
+                return movie;
+            }); 
+            dispatch( {type: LOADING_COMPLETE } );
+            dispatch({type: FETCH_MOVIES, payload: movies});
+        }).catch((err) => {
+
+            dispatch({type: FETCH_MOVIES_ERROR, payload:err})
+        })
+         
+    };
 }
 
-export const create = (formData) => dispatch => {
-    fetch(`${entityUrl}`, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(res => res.json())
-    .then(movie => dispatch({
-        type:NEW_MOVIE,
-        payload: movie
-    })); 
+
+export const create = (movie) => {
+
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+
+        dispatch( {type: LOADING } );
+        
+        const firestore = getFirestore();
+        // const profile = getState().firebase.profile;
+        const userId = getState().firebase.auth.uid; 
+        
+        firestore.collection(entity).add({            
+            ...movie,
+            // userName: profile.name,
+            userId: userId,
+            updateAt: new Date()
+        }).then(() => { 
+            dispatch( {type: LOADING_COMPLETE } );
+            dispatch({type: CREATE_MOVIE, payload: movie});
+        }).catch((err) => {
+
+            dispatch({type: CREATE_MOVIE_ERROR, payload:err})
+        })
+    }
 }
 
-export const update = (id, formData) => dispatch => {
-    return fetch(`${entityUrl}/${id}`, {
-        method: 'PUT',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(res => res.json())
-    .then(movie => dispatch({
-        type:UPDATE_MOVIE,
-        payload: movie
-    }));
+export const update = (id, formData) =>  {
+
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        dispatch( {type: LOADING } );
+        
+        const firestore = getFirestore();
+        firestore.collection(entity).doc(id).set(formData)
+        .then(doc => {
+            dispatch( {type: LOADING_COMPLETE } );
+            dispatch({type: UPDATE_COMPLETED});
+        }).catch((err) => { 
+            dispatch({type: FETCH_MOVIES_ERROR, payload:err})
+        })
+         
+    };
 }
 
-export const fetchMovie = (movieId) => dispatch => { 
-    fetch(`${entityUrl}/${movieId}`)
-    .then(res => res.json())
-    .then(movie => dispatch({
-        type: VIEW_MOVIE,
-        payload: movie
-    }));
+export const fetchMovie = (movieId) => { 
+
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+
+        dispatch( {type: LOADING } );
+        
+        const firestore = getFirestore();
+
+        firestore.collection(entity).doc(movieId).get()
+        .then(doc => { 
+            const movie = doc.data(); 
+            movie.id = doc.id; 
+            dispatch( {type: LOADING_COMPLETE } );
+            dispatch({type: VIEW_MOVIE, payload: movie});
+        }).catch((err) => { 
+            dispatch({type: FETCH_MOVIES_ERROR, payload:err})
+        })
+         
+    };
 }
 
-export const deleteMovie = (id, formData) => dispatch => {
-    return fetch(`${entityUrl}/${id}`, {
-        method: 'DELETE'
-    })
-    .then(movie => dispatch({
-        type:DELETE_MOVIE,
-        payload: "{}"
-    }));
+export const deleteMovie = (id) =>  {
+    
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        dispatch( {type: LOADING } );
+        
+        const firestore = getFirestore();
+        firestore.collection(entity).doc(id).delete()
+        .then(doc => {  
+            dispatch( {type: LOADING_COMPLETE } );
+            dispatch({type: DELETE_MOVIE}); 
+        }).catch((err) => { 
+            dispatch({type: FETCH_MOVIES_ERROR, payload:err})
+        })
+         
+    };
 }
  

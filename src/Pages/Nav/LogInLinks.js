@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 import { logOut } from '../../redux/actions/authAction';
 
-function LoginLinks({logOut, profile}) {
-  console.log('profile',profile);
+function LoginLinks({logOut, profile}) { 
+
   return (
     <div className="collapse navbar-collapse">
       <ul className="navbar-nav">
@@ -22,6 +22,7 @@ function LoginLinks({logOut, profile}) {
       </ul>
     </div>
   );
+  
 }
  
 export default connect(null, { logOut })(LoginLinks);

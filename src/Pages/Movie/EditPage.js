@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import { create, update, fetchMovie } from '../../redux/actions/movieActions';
 import { moduleConfig } from './config'
 
+import LoadingCmps from '../Components/LoadingCmps';
+
+
 class EditPage extends Component {
 
-    constructor(props){ 
+    constructor(){ 
         super(); 
         this.state = {
             movie: {
@@ -19,7 +22,7 @@ class EditPage extends Component {
         this.handleInput = this.handleInput.bind(this)
     }
 
-    isUpdate(){
+    isEdit(){
         const { params } = this.props.match; 
         return (params.id !== undefined) ? params.id : false;
     } 
@@ -35,31 +38,30 @@ class EditPage extends Component {
 
     redirect = (id=false) => { 
         const { history } = this.props;
+        let url = (`/${moduleConfig.url}`);
         if(id) {
-            history.push(`/${moduleConfig.url}/view/${id}`);
+            url = `/${moduleConfig.url}/view/${id}`;
         }
-        else {
-            history.push(`/${moduleConfig.url}`);
-        }
+        history.push(url);
     }
     
     handleSaveData(e) {
-        const movieId = this.isUpdate(); 
+        const movieId = this.isEdit(); 
         let { movie } = this.state;
         if(movieId){
             e.preventDefault();
             this.props.update(movieId, movie);
-            this.redirect(movieId);
+            return this.redirect(movieId);
         }
         else {
             e.preventDefault();
             this.props.create(movie);
-            this.redirect();
+            return this.redirect();
         }
     }
 
     componentDidMount(){
-        const movieId = this.isUpdate();
+        const movieId = this.isEdit();
         if(movieId) {
             this.props.fetchMovie(movieId);
         }
@@ -70,17 +72,19 @@ class EditPage extends Component {
     }
 
     render() {  
-        let { movie } = this.state;
+        let { movie} = this.state;
+        let { isLoading } = this.props;
         // Check data loaded only update page
-        if(movie.id===0 && this.isUpdate())
-            return(<div>Loading...</div>);
+        if(isLoading )
+            return(<LoadingCmps></LoadingCmps>);
+        
         let headLine = <h3 >Create Post</h3>;
-        if(this.isUpdate()) {
+        if(this.isEdit()) {
             headLine = <h3 >Update { movie.name } </h3>;
         }
         return (
             <div className="container movie-page">
-                { headLine }
+                { headLine }  
                 <form className="" onSubmit={ this.handleSaveData.bind(this) }>
                     <div className="form-group">
                         <label htmlFor="Name">Name</label>
@@ -102,8 +106,11 @@ class EditPage extends Component {
     }
 }
 
-const mapStateToprops = state => ({
-    movie: state.movies.item
-});
+const mapStateToprops = state => { 
+    return ({
+        isLoading: state.movies.isLoading,
+        movie: state.movies.item
+    });
+};
 
 export default connect( mapStateToprops, { create, update, fetchMovie })(EditPage);
