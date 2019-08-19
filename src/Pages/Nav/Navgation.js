@@ -6,9 +6,11 @@ import LogInLinks from './LogInLinks';
 import LogOutLinks from './LogOutLinks';
 
 class Navgation extends Component { 
+
   render() {
     const { auth, profile } = this.props; 
-    const links = auth.uid ? <LogInLinks profile={profile}/> : <LogOutLinks /> 
+    const links = auth.uid ? <LogInLinks profile={profile}/> : <LogOutLinks />
+     
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <Link className="navbar-brand" to="/">{appConfig.app.name}</Link>
@@ -19,6 +21,7 @@ class Navgation extends Component {
       </nav>
     ); 
   }
+
 }
 
 const mapStateToProps = (state) => { 

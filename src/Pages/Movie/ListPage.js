@@ -1,51 +1,37 @@
 import React, { Component } from 'react';   
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchMovies, deleteMovie} from '../../redux/actions/movieActions'; 
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom'; 
 import { moduleConfig } from './config';
+import { fetchMovies} from '../../redux/actions/movieActions'; 
+import LoadingCmps from '../Components/LoadingCmps';
 
-class ListPage extends Component { 
+class ListPage extends Component {
   
-  constructor() {
-    super();
-    this.deleteMovie = this.deleteMovie.bind(this);
-  }
-
-  getMovies() { 
-    this.props.fetchMovies();
-  }
-
-  deleteMovie(e, id) {
-    this.props.deleteMovie(id)
-    .then(()=> {
-      this.getMovies();
-    })
-  }
-
   componentDidMount() {
-    this.getMovies();
+    this.props.fetchMovies();    
   }
   
   render() {
-    const { movies, limit, auth } = this.props;
+    const { movies, auth, isLoading } = this.props;
+    
     const recordsCount = movies.length; 
     
     if(!auth.uid) return <Redirect to ="/auth/login" /> 
 
-    if(recordsCount===0){
-      return(<div>Loading.....</div>);
-    } 
+    if(isLoading || recordsCount===0){
+      return(<LoadingCmps></LoadingCmps>);
+    }
 
-    // if list defined only list last items only
-    const _limit = limit || recordsCount; 
+    // if(recordsCount===0){
+    //   return(<Redirect to="movie/edit" />);
+    // }
     
-    let moviesItems = movies.slice((recordsCount - _limit), recordsCount).map((movie)=>{
+    let moviesItems = movies.map((movie)=>{
       let url = `/${moduleConfig.url}/view/${movie.id}`;
       return (
         <li key={movie.id}>
           <Link to={url} > {movie.name} </Link>
-          <button className="btn btn-outline-danger btn-sm" onClick={(e) => this.deleteMovie(e, movie.id)}>x</button>
         </li>
       );
     });
@@ -61,6 +47,7 @@ class ListPage extends Component {
         </ul>
       </div>
     );
+
   }
 }
 
@@ -68,15 +55,9 @@ class ListPage extends Component {
 //   name: PropTypes.string.isRequired,
 // };
 const mapStateToprops = state => ({
+  isLoading: state.movies.isLoading,
   movies: state.movies.items,
   auth: state.firebase.auth
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchMovies: () => dispatch(fetchMovies()),
-    deleteMovie: (id) => dispatch(deleteMovie(id))
-  }
-}
-
-export default connect( mapStateToprops, mapDispatchToProps)(ListPage);
+export default connect(mapStateToprops, {fetchMovies})(ListPage)

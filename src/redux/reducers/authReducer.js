@@ -14,7 +14,7 @@ export default function(state = initialSate, action) {
                 isLoading: true
             }
         
-        case LOADING_FINISHED:
+        case LOADING_COMPLETE:
             return {
                 ...state,
                 isLoading: false
@@ -32,16 +32,16 @@ export default function(state = initialSate, action) {
                 authError: null
             }
 
-        case SIGNOUT_SUCCESS:
+        case LOGOUT_SUCCESS:
             return state;
 
-        case SIGNUP_SUCCESS:
+        case REGISTER_SUCCESS:
             return {
                 ...state,
                 authError: null
             };
 
-        case SIGNUP_ERROR:
+        case REGISTER_ERROR:
             return {
                 ...state,
                 authError: action.payload

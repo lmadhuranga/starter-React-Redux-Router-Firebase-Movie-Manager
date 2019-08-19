@@ -1,5 +1,9 @@
 export const FETCH_MOVIES = 'FETCH_MOVIES';
 export const VIEW_MOVIE = 'VIEW_MOVIE';
-export const NEW_MOVIE = 'NEW_MOVIE';
+export const UPDATE_COMPLETED = 'UPDATE_COMPLETED';
+export const CREATE_MOVIE = 'CREATE_MOVIE';
 export const UPDATE_MOVIE = 'UPDATE_MOVIE';
 export const DELETE_MOVIE = 'DELETE_MOVIE';
+
+export const CREATE_MOVIE_ERROR = 'CREATE_MOVIE_ERROR';
+export const FETCH_MOVIES_ERROR = 'FETCH_MOVIES_ERROR';
