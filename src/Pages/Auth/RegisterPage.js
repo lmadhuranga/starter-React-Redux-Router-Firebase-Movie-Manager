@@ -5,7 +5,9 @@ import { Redirect } from 'react-router-dom';
 import { register } from '../../redux/actions/authAction';
 
 class RegisterPage extends Component {
+
     constructor() {
+        
         super();
         this.state = {
             email: "",

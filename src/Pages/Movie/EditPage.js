@@ -74,14 +74,17 @@ class EditPage extends Component {
     render() {  
         let { movie} = this.state;
         let { isLoading } = this.props;
+
         // Check data loaded only update page
         if(isLoading )
             return(<LoadingCmps></LoadingCmps>);
         
         let headLine = <h3 >Create Post</h3>;
+
         if(this.isEdit()) {
             headLine = <h3 >Update { movie.name } </h3>;
         }
+        
         return (
             <div className="container movie-page">
                 { headLine }  

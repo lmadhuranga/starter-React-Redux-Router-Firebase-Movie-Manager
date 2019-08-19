@@ -13,6 +13,7 @@ class ListPage extends Component {
   }
   
   render() {
+    
     const { movies, auth, isLoading } = this.props;
     
     const recordsCount = movies.length; 

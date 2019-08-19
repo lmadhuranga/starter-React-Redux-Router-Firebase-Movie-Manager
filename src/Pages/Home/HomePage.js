@@ -6,13 +6,15 @@ import MovieListPage from '../Movie/ListPage';
 
 class HomePage extends Component {
   
-  render() { 
+  render() {
+
     return (
       <div className="container homePage">
         <h1>Home Page</h1>  
         <MovieListPage limit={10}></MovieListPage>
       </div>
     );
+    
   }
   
 } 

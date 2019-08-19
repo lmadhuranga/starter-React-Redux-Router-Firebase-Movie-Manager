@@ -8,8 +8,7 @@ const initialSate = {
 }
 
 export default function(state = initialSate, action) {
-    // console.log('action',action.type ,action.payload);
-    // console.log('initialSate',initialSate);
+    
     switch(action.type) {
         case FETCH_MOVIES: 
             return {

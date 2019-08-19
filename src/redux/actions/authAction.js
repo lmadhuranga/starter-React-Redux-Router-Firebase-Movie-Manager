@@ -4,6 +4,7 @@ import { LOADING, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS, LOADING_COMPLETE, 
 // const entityUrl = `${appConfig.app.host.url}/${entity}`;
 
 export const login = (loginDetials) => {
+    
     return (dispatch, getState, {getFirebase}) => {
 
         dispatch({type:  LOADING });

@@ -7,6 +7,7 @@ import GoogleButton from 'react-google-button'
 
 
 class LoginPage extends Component {
+    
     constructor() {
         super();
         this.state = {
